@@ -1,4 +1,7 @@
 from flask import Flask, jsonify
+from config import app, db
+from models import User, Patient
+
 
 app = Flask(__name__)
 
@@ -6,7 +9,8 @@ app = Flask(__name__)
 
 @app.route('/users')
 def users():
-    return {"users": ["Ragnarok", "Violet", "parker", "jason"]}
+    users = User.query.all()
+    return jsonify({'users': [user.username for user in users]})
 
 if __name__ == "__main__":
     app.run(debug=True)
