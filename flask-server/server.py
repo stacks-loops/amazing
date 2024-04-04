@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/users')
 def users():
-    return {"users": ["Ragnarok", "Violet", "parker"]}
+    return {"users": ["Ragnarok", "Violet", "parker", "jason", "toledo", "batman"]}
 
 if __name__ == "__main__":
     app.run(debug=True)
