@@ -11,3 +11,11 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     # add the rest of attributres and auth stuff here
+
+class Patient(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50), unique=True, nullable=False)
+    # add the rest of attributres and auth stuff here
+
+#realtionsips
+    users = db.relationship('User', secondary=user_patient_association, backref=db.backref('patients', lazy='dynamic'))
