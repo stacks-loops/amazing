@@ -371,4 +371,5 @@ Go to instance in the flask-server directory and right click open database
 
 this is to get to green
 so im tyoing a bunch of nothing
-That will look good
+That will look good 
+to potential employers
