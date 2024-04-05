@@ -374,3 +374,4 @@ so im tyoing a bunch of nothing
 That will look good 
 to potential employers
 I di work sinvce 4am
+so I have no problem 
