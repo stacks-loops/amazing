@@ -370,3 +370,4 @@ type flask db upgrade
 Go to instance in the flask-server directory and right click open database
 
 this is to get to green
+so im tyoing
