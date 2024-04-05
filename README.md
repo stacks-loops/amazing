@@ -368,3 +368,5 @@ type flask db migrate
 type flask db upgrade
 
 Go to instance in the flask-server directory and right click open database
+
+this
