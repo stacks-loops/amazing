@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
-from config import app, db
-from models import User, Patient
+from config import app
+from models import User
 
 #users API route
 

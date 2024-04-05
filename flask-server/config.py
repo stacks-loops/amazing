@@ -9,7 +9,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
 
-# Local imports
+# # Local imports
+# from models import User, Patient
 
 # Instantiate app, set attributes
 app = Flask(__name__)
@@ -33,4 +34,3 @@ CORS(app)
 
 bcrypt = Bcrypt(app)
 
-app.secret_key = b'\x87\x92\xdcw\xbe)\x17\xbd\x11\xda\x90\xed\xc1\xdf\x94,'
