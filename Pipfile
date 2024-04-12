@@ -12,6 +12,7 @@ migrate = "*"
 api = "*"
 sqlalchemy = "*"
 bcrypt = "*"
+ipdb = "*"
 
 [dev-packages]
 
