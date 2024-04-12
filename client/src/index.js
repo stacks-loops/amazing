@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import 
+import PatientForm from './components/PatientForm'
+import Login from '/componenets/Login'
+import Logout from './components/Logout'
 
 const router = createBrowserRouter(routes)
 const root = ReactDOM.createRoot(document.getElementById('root'));
