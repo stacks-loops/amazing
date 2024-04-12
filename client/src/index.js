@@ -6,6 +6,29 @@ import PatientForm from './components/PatientForm'
 import Login from '/componenets/Login'
 import Logout from './components/Logout'
 
+const routes = [
+  {
+    path: '/',
+    element: <App />,
+      },
+  {
+      path: '/login',
+      element: <Login />,
+      },
+  {
+    path: '/auth',
+    element: <Auth />,
+      },
+  {
+      path: '/login',
+      element: <Login />,
+      },     
+      
+  
+
+
+]
+
 const router = createBrowserRouter(routes)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
