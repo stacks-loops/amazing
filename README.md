@@ -1,4 +1,7 @@
 # amazing
+
+// Thin vertical slice front to back by feature
+
 Just updating the ol readme
 https://www.youtube.com/watch?v=7LNl2JlZKHA
 
