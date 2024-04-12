@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from config import db
+from config import db, bcrypt
 
 user_patient_association = db.Table(
     'user_patient_association',
@@ -10,6 +10,7 @@ user_patient_association = db.Table(
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
+    _password_hash = db.Column(db.String, nullable=False)
     # add the rest of attributres and auth stuff here
 
 class Patient(db.Model):
