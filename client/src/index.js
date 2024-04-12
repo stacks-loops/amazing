@@ -24,16 +24,9 @@ const routes = [
       element: <Auth />,
       },     
     {
-      path: '/',
+      path: '/patientform',
       element: <App />,
         },
-    {
-        path: '/login',
-        element: <Login />,
-        },
-
-
-
 ]
 
 const router = createBrowserRouter(routes)
