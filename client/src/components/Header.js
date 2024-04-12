@@ -1,4 +1,6 @@
 import { Navlink } from "react-router-dom";
+import React from "react"
+
 
 function Header({ logoutUser }) {
     
@@ -22,6 +24,7 @@ function Header({ logoutUser }) {
                 <NavLink to="/PatientList">Your Patients</NavLink>
             </nav>
             <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleModeClick}>{ buttonText }</button>
         </header>
     )
 
