@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { Box, Button, Container, TextField } from '@mui/material';
-import { useFormik } from 'formik'
-import * as yup from 'yup'
+import { Formik, Field } from 'formik';
+import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
 function Auth({ setUser })  {
     const [signup, setSignup] = useState(true)
+    const navigate = useNavigate()
 
     const signupSchema = yup.object().shape({
         username: yup.string()
@@ -20,12 +22,19 @@ function Auth({ setUser })  {
         password: yup.string().required('password required')
     })
 
+    const initialValues = {
+        username: '',
+        password: '',
+        passwrodConfirmation: ''
+    }
+
     const formik = useFormik({
         initialValues: {
             username: '',
             password: ' ',
             passwordConfirmation: '',
         },
+
         validationSchema: signup ? signupSchema : loginSchema,
         onSubmit: (values) => {
             const endpoint = signup ? '/users' : '/login'
@@ -55,33 +64,48 @@ function toggleSignup() {
 return (
     <Container maxWidth='sm'>
         <button onClick={toggleSignup}>{signup ? 'Already have a login?' : 'Create an Account'}</button>
-        <form className='form' onSubmit={formik.handleSubmit}>
-        <label htmlFor='username'>Username:</label>
-        <input
-            id="username"
-            name="username"
-            placeholder="Username"
-            required
-            value={formik.values.username}
-            onChange={formik.handleChange}
-        />
+        <Formik 
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={signup ? signupSchema : loginSchema}
+            >
+            {(props) => {
+                return (
+                    <form className='form' onSubmit={formik.handleSubmit}>
+                        <Field name='username' placeholder='Username' />
+                        {props.errors.username && props.touched.username ? (
+                            <div>{props.errors.username}</div>
+                        ) : null}
+                        <label htmlFor='password'>Passwrod:</label>
+                        <input
+                            id='password'
+                            name='password'
+                            type='password'
+                            placeholder='Password'
+                            value={props.values.password}
+                            onChange={props.handleChange}
+                        />
+                                {signup && <>
+                                    <label htmlFOR='phase'>Phase:</label>
+                                    <input 
+                                    id="passwordConfirmation"
+                                    name="passwordConfirmation"
+                                    type='password'
+                                    placeholder="Passwrod Confirmation"
+                                    value={props.values.passwordConfirmation}
+                                    onChange={props.handleChange}
+                                />
+                            </>}
+                        <button type="submit">SUBMIT</button>
+                    </form>
 
-                    {signup && <>
-                        <label htmlFOR='phase'>Phase:</label>
-                        <input 
-                        id="passwordConfirmation"
-                        name="passwordConfirmation"
-                        type='password'
-                        placeholder="Passwrod Confirmation"
-                        value={formik.values.passwordConfirmation}
-                        onChange={formik.handleChange}
-                    />
-                </>}
-                <button type="submit">SUBMIT</button>
-            </form>
+                )}
+            }
+            
+        
+            </Formik>
         </Container>
     )
-
 }
 
 export default Auth;
