@@ -65,10 +65,22 @@ return (
             value={formik.values.username}
             onChange={formik.handleChange}
         />
-          
-        </form>
-    </Container>
-)
+
+                    {signup && <>
+                        <label htmlFOR='phase'>Phase:</label>
+                        <input 
+                        id="passwordConfirmation"
+                        name="passwordConfirmation"
+                        type='password'
+                        placeholder="Passwrod Confirmation"
+                        value={formik.values.passwordConfirmation}
+                        onChange={formik.handleChange}
+                    />
+                </>}
+                <button type="submit">SUBMIT</button>
+            </form>
+        </Container>
+    )
 
 }
 
