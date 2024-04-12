@@ -86,7 +86,7 @@ return (
                             onChange={props.handleChange}
                         />
                                 {signup && <>
-                                    <label htmlFOR='phase'>Phase:</label>
+                                    <label htmlFor='phase'>Phase:</label>
                                     <input 
                                     id="passwordConfirmation"
                                     name="passwordConfirmation"
