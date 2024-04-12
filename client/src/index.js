@@ -16,15 +16,22 @@ const routes = [
       element: <Login />,
       },
   {
-    path: '/auth',
-    element: <Auth />,
+    path: '/logout',
+    element: <Logout />,
       },
   {
-      path: '/login',
-      element: <Login />,
+      path: '/auth',
+      element: <Auth />,
       },     
-      
-  
+    {
+      path: '/',
+      element: <App />,
+        },
+    {
+        path: '/login',
+        element: <Login />,
+        },
+
 
 
 ]
