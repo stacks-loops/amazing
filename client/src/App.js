@@ -1,9 +1,16 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
+import Header from './components/Header';
+import Auth from "./components/Auth";
+
 
 function App() {
 
   const [data, setData] = useState({users: [] })
   const [loggedInUser, setLoggedInUser] = useState(null)
+
+  function logoutUser() {
+    setLoggedInUser(null)
+  }
   
   useEffect(() => {
     fetch("/users")
