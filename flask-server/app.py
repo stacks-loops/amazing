@@ -29,7 +29,19 @@ api = Api(app)
 # Instantiate CORS
 CORS(app)
 
-
+#get current info route
+@app.route("/@me", methods=["GET"])
+def get_current_user():
+    user_id = session.get("user_id")
+    if not user_id:
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    #retrieve the user from db with matching id if it exists
+    user = User.query.filter_by(id=user_id).first()
+    return jsonify({
+        "id": user.id,
+        "email": user.email
+    })
 
 #register new user route
 @app.route('/register', methods=["POST"])
@@ -79,9 +91,6 @@ def login_user():
         "id": user.id,
         "email": user.email
     })
-
-
-
 
 
 
