@@ -1,12 +1,15 @@
-import { BrowserRouter, Route } from "react-router-dom"
-import LandingPage from "./LandingPage"
+import React from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import LandingPage from "./components/LandingPage"
+import NotFound from "./components/NotFound"
 
-const Router = () => {
+const Router: React.FC = () => {
   return (
     <BrowserRouter>
-    
-        <Route path="/" component={LandingPage} />
-    
+        <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
     </BrowserRouter>
   )
 }

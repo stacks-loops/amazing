@@ -1,11 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App.tsx'
+import ReactDOM from 'react-dom/client'
+import Router from "./router.tsx"
 import 'bootstrap/dist/css/bootstrap.css'
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <Router />
   </React.StrictMode>,
-  document.getElementById('root')
+  
 )
