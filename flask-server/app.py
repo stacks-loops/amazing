@@ -11,6 +11,9 @@ from flask_restful import Api
 # Instantiate app, set attributes
 app = Flask(__name__)
 app.config.from_object(ApplicationConfig)
+# Instantiate bcrypt 
+bcrypt = Bcrypt(app)
+
 
 db.init_app(app)
 
@@ -26,8 +29,6 @@ api = Api(app)
 CORS(app)
 
 
-# Instantiate bcrypt 
-bcrypt = Bcrypt(app)
 
 #register new user route
 @app.route('/register')
@@ -36,7 +37,7 @@ def register_user():
     email = data.get("email")
     password = data.get["password"]
 
-    # check if user exists
+    # check if user exists (will reeturn true)
     user_exists = User.query.filter(email=email).first() is not None
 
     # abort if conflict in current state of the resource 409
