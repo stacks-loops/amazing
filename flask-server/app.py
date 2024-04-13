@@ -55,6 +55,31 @@ def register_user():
         "id": new_user.id,
         "email": new_user.email
     }) 
+@app.route("/login", methods=["POST"])
+def login_user():
+    data = request.json
+    email = data.get("email")
+    password = data.get("password")
+
+    user = User.query.filter_by(email=email).first()
+
+    #if they do not have an account
+    if user is None:
+        return jsonify({"error": "Unauthorized"}), 401
+    #if password is wrong
+    if not bcrypt.check_password_hash(user.password, password):
+        return jsonify({"error": "Unauthorized"}), 401
+    #all checkcs out
+
+    return jsonify({
+        "id": user.id,
+        "email": user.email
+    })
+
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
