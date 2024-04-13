@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-from config import db, bcrypt
+from flask_sqlalchemy import SQLAlchemy
 from uuid import uuid4
 
+db = SQLAlchemy()
 # this will generate a unique id
 def get_uuid():
     return uuid4().hex
