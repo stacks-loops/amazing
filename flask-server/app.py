@@ -31,14 +31,14 @@ CORS(app)
 
 
 #register new user route
-@app.route('/register')
+@app.route('/register', methods=["POST"])
 def register_user():
     data = request.json
     email = data.get("email")
-    password = data.get["password"]
+    password = data.get("password")
 
     # check if user exists (will reeturn true)
-    user_exists = User.query.filter(email=email).first() is not None
+    user_exists = User.query.filter_by(email=email).first() is not None
 
     # abort if conflict in current state of the resource 409
     if user_exists:
