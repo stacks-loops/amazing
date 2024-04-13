@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 from config import db, bcrypt
+from uuid import uuid4
+
+# this will generate a unique id
+def get_uuid():
+    return uuid4().hex
 
 user_patient_association = db.Table(
     'user_patient_association',
@@ -8,7 +13,11 @@ user_patient_association = db.Table(
 )
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    __tablename__ = "users"
+    # default id will be generated if none
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    # max email chars is 345
+    email = db.Column(db.String(345), unique=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     _password_hash = db.Column(db.String, nullable=False)
     # add the rest of attributres and auth stuff here
