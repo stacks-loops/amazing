@@ -13,24 +13,20 @@ function App() {
   }
   
   useEffect(() => {
-    fetch("/users")
-    .then(res => {
-      if (!res.ok) {
-        throw new Error("Network response was in fact not okay")
+    fetch("/authorized")
+    .then(response => {
+      if (!response.ok) {
+        response.json().then((user) => setLoggedInUser(user))
       }
-      return res.json()
+      return response.json()
     })
-    .then(data => {
-        setData(data)
-        console.log(data)
-      })
       .catch(error => {
         console.error('Error fetching data:', error)
       })
   }, [])
 
   return (
-    <div className={className}>
+    <div >
      {
       !!loggedInUser ?
       <Outlet /> :
