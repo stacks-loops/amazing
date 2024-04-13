@@ -42,7 +42,7 @@ def register_user():
 
     # abort if conflict in current state of the resource 409
     if user_exists:
-        abort(409)
+        return jsonify({"error": "User exists"}), 409
 
     # use bcrpyt to hash the password
     hashed_password = bcrypt.generate_password_hash(password)
