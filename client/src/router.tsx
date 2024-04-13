@@ -1,14 +1,14 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { BrowserRouter, Route } from "react-router-dom"
+import LandingPage from "./LandingPage"
 
-const router = () => {
+const Router = () => {
   return (
     <BrowserRouter>
-    <Switch>
-        <Route path="/" component={LandingPage}/>
-    </Switch>
+    
+        <Route path="/" component={LandingPage} />
     
     </BrowserRouter>
   )
 }
 
-export default router
+export default Router

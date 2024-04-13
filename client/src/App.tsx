@@ -1,7 +1,8 @@
-import ListGroup from "./components/ListGroup"
+// import ListGroup from "./components/ListGroup"
+import LandingPage from "./components/LandingPage"
 
 function App() {
-  return <div><ListGroup /></div>
+  return <div><LandingPage /></div>
 }
 
 export default App
