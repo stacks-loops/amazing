@@ -1,11 +1,12 @@
 
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, jsonify, session
 from config import ApplicationConfig
 from models import db, User
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful import Api
+from flask_session import Session
 # from flask_sqlalchemy import SQLAlchemy
 
 # Instantiate app, set attributes
@@ -13,7 +14,7 @@ app = Flask(__name__)
 app.config.from_object(ApplicationConfig)
 # Instantiate bcrypt 
 bcrypt = Bcrypt(app)
-
+server_session = Session(app)
 
 db.init_app(app)
 
@@ -69,8 +70,11 @@ def login_user():
     #if password is wrong
     if not bcrypt.check_password_hash(user.password, password):
         return jsonify({"error": "Unauthorized"}), 401
-    #all checkcs out
 
+    #store the user id in thes session for authent and authorization
+    session["user_id"] = user.id
+
+    #all checkcs out
     return jsonify({
         "id": user.id,
         "email": user.email
