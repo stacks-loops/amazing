@@ -4,6 +4,10 @@ import { User } from "../types";
 
 function LandingPage() {
   const [user, setUser] = useState<User | null>(null);
+  const logoutUser = async () => {
+    await httpClient.post("//localhost:5000/logout");
+    window.location.href = "/"
+  };
 
   useEffect(() => {
     (async () => {
@@ -25,6 +29,8 @@ function LandingPage() {
           <h2>You are Signed In</h2>
           <h3>Email: {user.email}</h3>
           <h3>ID: {user.id}</h3>
+
+          <button onClick={logoutUser}>Logout</button>
         </div>
       ) : (
         <div>
