@@ -1,18 +1,22 @@
-import React from 'react'
+import React from "react";
 
-
-const LandingPage: React.FC = () => {
+function LandingPage() {
   return (
     <div>
-        <h1>Welcome to Spalla</h1>
-        <p>Please Login to continue</p>
-        <a href="/login">
-            <button>Login</button></a>
-        <a href="/register">
-            <button>Create Account</button></a>
-        
+      <h1>Welcome to Spalla</h1>
+        <div>
+          <p>Please Login to continue</p>
+          <div>
+            <a href="/login">
+              <button>Login</button>
+            </a>
+            <a href="/register">
+              <button>Create Account</button>
+            </a>
+          </div>
+        </div>
     </div>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;
