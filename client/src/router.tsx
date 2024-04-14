@@ -1,11 +1,10 @@
-import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import LandingPage from "./components/LandingPage"
 import NotFound from "./components/NotFound"
 import LoginPage from "./components/LoginPage"
 import SignupPage from './components/Signup'
 
-const Router: React.FC = () => {
+function Router() {
   return (
     <BrowserRouter>
         <Routes>

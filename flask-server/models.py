@@ -7,11 +7,6 @@ db = SQLAlchemy()
 def get_uuid():
     return uuid4().hex
 
-# user_patient_association = db.Table(
-#     'user_patient_association',
-#     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-#     db.Column('patient_id', db.Integer, db.ForeignKey('patient.id'))
-# )
 
 class User(db.Model):
     __tablename__ = "users"
@@ -35,10 +30,17 @@ class User(db.Model):
 #         self._password_hash = hash_object_as_string
 
 
-# class Patient(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     first_name = db.Column(db.String(50), unique=True, nullable=False)
-#     # add the rest of attributres and auth stuff here
+class Patient(db.Model):
+    __tablename__ = "patients"
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50), unique=True, nullable=False)
+    # add the rest of attributres and auth stuff here
 
-# #realtionsips
-#     users = db.relationship('User', secondary=user_patient_association, backref=db.backref('patients', lazy='dynamic'))
+#realtionsips
+user_patient_association = db.Table(
+    'user_patient_association',
+    db.Column('user_id', db.Integer, db.ForeignKey('users')),
+    db.Column('patient_id', db.Integer, db.ForeignKey('patients'))
+)
+
+users = db.relationship('User', secondary=user_patient_association, backref=db.backref('patients', lazy='dynamic'))
