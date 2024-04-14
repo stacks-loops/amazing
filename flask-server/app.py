@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, session
 from config import ApplicationConfig
 from models import db, User
 from flask_bcrypt import Bcrypt
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask_migrate import Migrate
 from flask_restful import Api
 from flask_session import Session
@@ -27,7 +27,7 @@ migrate = Migrate(app, db)
 api = Api(app)
 
 # Instantiate CORS
-CORS(app)
+CORS(app, supports_credentials=True)
 
 #get current info route
 @app.route("/@me", methods=["GET"])
@@ -68,6 +68,7 @@ def register_user():
         "id": new_user.id,
         "email": new_user.email
     }) 
+
 @app.route("/login", methods=["POST"])
 def login_user():
     data = request.json
