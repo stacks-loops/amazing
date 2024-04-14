@@ -1,13 +1,15 @@
 
 from flask import Flask, request, jsonify, session
 from config import ApplicationConfig
-from models import db, User
+from models import db, User, Patient
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful import Api
 from flask_session import Session
 # from flask_sqlalchemy import SQLAlchemy
+from wtforms import Form, StringField, IntegerField, DateField
+from datetime import datetime
 
 
 # Instantiate app, set attributes
@@ -29,6 +31,31 @@ api = Api(app)
 
 # Instantiate CORS
 CORS(app, origins='http://localhost:5173', supports_credentials=True)
+
+#define form structure and route for addpatient intake form
+@app.route('/add-patient', methods=["POST"])
+def add_patient():
+    data = request.json
+
+    #dob needs to be chnaged to python
+    dob = datetime.strptime(data.get('dob'), '%Y-%m-%d').date()
+
+    new_patient = Patient(
+            first_name=data.get('firstName'),
+            last_name=data.get('lastName'),
+            dob=dob,
+            age=data.get('age'),
+            patient_phone=data.get('patientPhone'),
+            patient_email=data.get('patientEmail'),
+            patient_address=data.get('patientAddress'),
+            hospital_name=data.get('hospitalName'),
+            room_number=data.get('roomNumber'),
+            health_concerns=data.get('healthConcerns')
+        )
+    db.session.add(new_patient)
+    db.session.commit()
+
+    return jsonify({"SUCCESS": "Your patient has been added"}), 201
 
 #get current info route
 @app.route("/@me", methods=["GET"])

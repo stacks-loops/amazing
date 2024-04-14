@@ -7,3 +7,4 @@ python-dotenv
 flask-session
 redis
 flask-cors
+WTforms==2.3.3
