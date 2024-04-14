@@ -1,7 +1,7 @@
 
 from flask import Flask, request, jsonify, session
 from config import ApplicationConfig
-from models import db, User, Patient
+from models import db, User, Patient, user_patient_association
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -53,6 +53,13 @@ def add_patient():
             health_concerns=data.get('healthConcerns')
         )
     db.session.add(new_patient)
+    db.session.commit()
+
+    #get the id of the user who is logged in
+    user_id = session.get("user_id")
+    #add to the realtionship table
+    user_patient_entry = user_patient_association.insert().values(user_id=user_id, patient_id=new_patient.id)
+    db.session.execute(user_patient_entry)
     db.session.commit()
 
     return jsonify({"SUCCESS": "Your patient has been added"}), 201
