@@ -7,6 +7,7 @@ function AddPatientForm() {
         try {
             const resp = await axios.post('http://localhost:5000/add-patient', values)
             console.log(resp.data)
+            window.location.href = '/spalla-home'
 
         } catch (error) {
             console.error('Error adding this patient', error)
