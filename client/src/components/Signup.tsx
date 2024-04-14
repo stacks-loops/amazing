@@ -4,6 +4,7 @@ import httpClient from "../httpClient";
 function SignupPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState('')
 
   const createUser = async () => {
     try {
@@ -13,16 +14,18 @@ function SignupPage() {
       });
 
       // good login takes you to this page
-      if (resp.status == 200) {
+      if (resp && resp.status == 200) {
         window.location.href = "/";
+      } else {
+        console.error("Unexpected response:", resp)
+        setError("Unexpected error")
       }
 
       // console.log(resp.data)
       // bad login error handling
-    } catch (error: any) {
-      if (error.response.status === 401) {
-        alert("Invalid, please enter username and password again");
-      }
+    } catch (error) {
+      console.error("error creating user", error)
+      setError("an error occured")
     }
   };
   // Forms for login
