@@ -9,12 +9,18 @@ function LoginPage() {
     console.log(email, password)
 
 
-    const resp = await httpClient.post("//localhost:5000/login", {
+    try {
+      const resp = await httpClient.post("//localhost:5000/login", {
       email,
       password,
     })
+    } catch (error: any) {
+      if (error.response.status === 401) {
+        alert("Invalid login")
+      }
+      
+    }
 
-    console.log(resp.data)
 
   }
   // Forms for login
