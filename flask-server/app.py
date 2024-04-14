@@ -45,8 +45,8 @@ def get_current_user():
     })
 
 #register new user route
-@app.route('/register', methods=["POST"])
-def register_user():
+@app.route('/signup', methods=["POST"])
+def signup_user():
     data = request.json
     email = data.get("email")
     password = data.get("password")
@@ -64,6 +64,8 @@ def register_user():
     new_user = User(email=email, password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
+
+    session["user_id"] = new_user.id
 
     return jsonify({
         "id": new_user.id,

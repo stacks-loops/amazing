@@ -39,7 +39,7 @@ function LandingPage() {
             <a href="/login">
               <button>Login</button>
             </a>
-            <a href="/register">
+            <a href="/signup">
               <button>Create Account</button>
             </a>
           </div>

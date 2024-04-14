@@ -1,24 +1,22 @@
 import { useState } from "react";
 import httpClient from "../httpClient";
 
-function LoginPage() {
+function SignupPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const loginUser = async () => {
-    console.log(email, password);
-
+  const createUser = async () => {
     try {
-      const resp = await httpClient.post("//localhost:5000/login", {
+      const resp = await httpClient.post("//localhost:5000/signup", {
         email,
         password,
       });
-      
+
       // good login takes you to this page
-      if (resp.status == 200){
-        window.location.href = "/"
+      if (resp.status == 200) {
+        window.location.href = "/";
       }
-      
+
       // console.log(resp.data)
       // bad login error handling
     } catch (error: any) {
@@ -30,7 +28,7 @@ function LoginPage() {
   // Forms for login
   return (
     <div>
-      <h1>Login to your account</h1>
+      <h1>Join the Spalla Network</h1>
       <form>
         <div>
           <label>Email</label>
@@ -50,7 +48,7 @@ function LoginPage() {
             id=""
           />
         </div>
-        <button type="button" onClick={() => loginUser()}>
+        <button type="button" onClick={() => createUser()}>
           Submit
         </button>
       </form>
@@ -58,4 +56,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default SignupPage;

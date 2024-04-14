@@ -1,5 +1,7 @@
 STACK
 
+Flask application that authenticates using server side session
+
 flask
 flask-sqlalchemy
 flask-bcrypt
