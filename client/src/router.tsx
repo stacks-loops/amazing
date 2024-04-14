@@ -3,6 +3,7 @@ import LandingPage from "./components/LandingPage"
 import NotFound from "./components/NotFound"
 import LoginPage from "./components/LoginPage"
 import SignupPage from './components/Signup'
+import HomePage from "./components/HomePage"
 
 function Router() {
   return (
@@ -11,6 +12,7 @@ function Router() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/spalla-home" element={<HomePage />} />
             <Route path="/test-login" element={<LoginPage />} />
             <Route path="*" element={<NotFound />} />
         </Routes>

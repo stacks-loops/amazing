@@ -16,7 +16,7 @@ function LoginPage() {
       
       // good login takes you to this page
       if (resp.status == 200){
-        window.location.href = "/"
+        window.location.href = "/spalla-home"
       }
       
       // console.log(resp.data)

@@ -18,7 +18,7 @@ function SignupPage() {
 
       // good login takes you to this page
       if (resp && resp.status == 200) {
-        window.location.href = "/";
+        window.location.href = "/spalla-home";
       } else {
         console.error("Unexpected response:", resp)
         setFieldError("Unexpected error")
