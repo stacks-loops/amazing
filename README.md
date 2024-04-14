@@ -26,3 +26,7 @@ Navigate to flask-server
 open in sqlite3
     cd flask-server
     sqlite3 app.db
+
+ctrl shift p 
+wrap
+whatever html wrapper you want
