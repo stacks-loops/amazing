@@ -9,6 +9,7 @@ from flask_restful import Api
 from flask_session import Session
 # from flask_sqlalchemy import SQLAlchemy
 
+
 # Instantiate app, set attributes
 app = Flask(__name__)
 app.config.from_object(ApplicationConfig)

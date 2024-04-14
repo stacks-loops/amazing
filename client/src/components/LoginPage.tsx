@@ -9,7 +9,7 @@ function LoginPage() {
     console.log(email, password)
 
 
-    const resp = await httpClient.post("http://localhost:5000/login", {
+    const resp = await httpClient.post("//localhost:5000/login", {
       email,
       password,
     })
