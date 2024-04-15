@@ -7,6 +7,11 @@ db = SQLAlchemy()
 def get_uuid():
     return uuid4().hex
 
+user_patient_association = db.Table(
+    'user_patient_association',
+    db.Column('user_id', db.String(32), db.ForeignKey('users.id')),
+    db.Column('patient_id', db.Integer, db.ForeignKey('patients.id'))
+)
 
 class User(db.Model):
     __tablename__ = "users"
@@ -18,6 +23,7 @@ class User(db.Model):
     password = db.Column(db.String(225), nullable=False)
     relationship = db.Column(db.String)
     # add the rest of attributres and auth stuff here
+    patients = db.relationship('Patient', secondary=user_patient_association, backref='users')
 
 #     @property
 #     def password_hash(self):
@@ -49,10 +55,5 @@ class Patient(db.Model):
     # add the rest of attributres and auth stuff here
 
 #relationsips
-user_patient_association = db.Table(
-    'user_patient_association',
-    db.Column('user_id', db.String(32), db.ForeignKey('users.id')),
-    db.Column('patient_id', db.Integer, db.ForeignKey('patients.id'))
-)
 
 users = db.relationship('User', secondary=user_patient_association, backref=db.backref('patients', lazy='dynamic'))
