@@ -16,7 +16,7 @@ function Router() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/spalla-home" element={<HomePage />} />
             <Route path="/add-patient" element={<AddPatient />} />
-            <Route path="/my-patient" element={<MyPatients />} />
+            <Route path="/my-patients" element={<MyPatients />} />
             <Route path="/test-login" element={<LoginPage />} />
             <Route path="*" element={<NotFound />} />
         </Routes>

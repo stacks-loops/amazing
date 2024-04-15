@@ -10,6 +10,7 @@ from flask_session import Session
 # from flask_sqlalchemy import SQLAlchemy
 from wtforms import Form, StringField, IntegerField, DateField
 from datetime import datetime
+import ipdb 
 
 
 # Instantiate app, set attributes
@@ -30,7 +31,7 @@ migrate = Migrate(app, db)
 api = Api(app)
 
 # Instantiate CORS
-CORS(app, origins='http://localhost:5173', supports_credentials=True)
+CORS(app, origins=['http://localhost:5173'], supports_credentials=True)
 
 
 #get current info route
@@ -148,17 +149,19 @@ def add_patient():
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
    
-@app.route('/my-patients', methods=["GET"], static_folder=None)
+@app.route('/patients', methods=["GET"])
 def my_patients():
     user_id = session.get("user_id")
     if not user_id:
-        return jsonify({"error", "Unauthorized"}), 401
-    user = User.query.get(user_id)
+        return jsonify({"error": "Unauthorized"}), 401
+    ipdb.set_trace()
 
+    user = User.query.filter_by(id=user_id).first()
     if not user:
         return jsonify({"error": "User not found"}), 404
     
-    patients = user.patients.all()
+    
+    patients = user.patients
 
     patient_data = [patient.to_dict() for patient in patients]
 

@@ -6,7 +6,7 @@ Implement a minimum of 3 client side routes using React router. CHECK
 Include full CRUD on at least 1 model, following REST conventions. NOT CHECK
 Implement validations and error handling. INCLUDED BUT NOT EVERYWHERE
 Implement something new not taught in the curriculum. (Check in with me to ensure the scope of your idea is appropriate.) DOLPHINATELY
-Implement authentication and authorization I THINK SO?
+Implement authentication and authorization I THINK SO? add 
 
 † It's ok if your CRUD takes place on different models, as long as there is full CRUD
 †† Please discuss with me if you have any issues aligning these requirements with your project.

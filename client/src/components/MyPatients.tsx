@@ -1,5 +1,6 @@
 import { ChangeEvent, useState, useEffect } from "react";
 import axios from "axios";
+import httpClient from "../httpClient";
 
 interface Patient {
     id: number;
@@ -18,7 +19,7 @@ interface Patient {
 
 function MyPatients() {
   const [patients, setPatients] = useState<Patient[]>([]);
-  console.log(patients)
+//   console.log(patients)
   //   const [newPatient, setNewPatient] = useState({
   //     firstName: "",
   //     lastName: "",
@@ -39,12 +40,12 @@ function MyPatients() {
 
   const fetchPatients = async () => {
     try {
-      const resp = await axios.get("/my-patients");
+      const resp = await httpClient.get("//localhost:5000/patients");
       console.log("Response from the server is here", resp.data);
       setPatients(resp.data);
       console.log(patients)
     } catch (error) {
-      console.error("Error fethcing patients:", error);
+      console.error("Error fetching patients:", error);
     }
   };
   //   const addPatient = async () => {

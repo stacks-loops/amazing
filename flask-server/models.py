@@ -53,6 +53,8 @@ class Patient(db.Model, SerializerMixin):
     hospital_name = db.Column(db.String(50), nullable=False)
     room_number = db.Column(db.Integer)
     health_concerns = db.Column(db.String)
+    
+    serialize_rules = ("-users.patients",)
 
 
     # add the rest of attributres and auth stuff here
