@@ -5,7 +5,8 @@ import { useUserContext } from './UserContext'
 
 function AddPatientForm() {
     const { user } = useUserContext();
-
+    console.log("User", user);
+    
     const handleSubmit = async (values : any) => {
         try {
             const resp = await axios.post('http://localhost:5000/add-patient', values)
