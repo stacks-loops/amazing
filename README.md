@@ -7,6 +7,19 @@ Include full CRUD on at least 1 model, following REST conventions. NOT CHECK
 Implement validations and error handling. INCLUDED BUT NOT EVERYWHERE
 Implement something new not taught in the curriculum. (Check in with me to ensure the scope of your idea is appropriate.) DOLPHINATELY
 Implement authentication and authorization I THINK SO? add 
+ 
+User can:
+Access the website
+Create an account
+Login
+Logout
+Navigate to pages
+Add a patient
+View their patient(s)
+Edit a patient
+Delete a patient
+NOT see others patients
+Schedule an appointment
 
 † It's ok if your CRUD takes place on different models, as long as there is full CRUD
 †† Please discuss with me if you have any issues aligning these requirements with your project.

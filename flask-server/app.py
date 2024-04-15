@@ -154,7 +154,7 @@ def my_patients():
     user_id = session.get("user_id")
     if not user_id:
         return jsonify({"error": "Unauthorized"}), 401
-    ipdb.set_trace()
+    # ipdb.set_trace()
 
     user = User.query.filter_by(id=user_id).first()
     if not user:
