@@ -1,11 +1,9 @@
 import { useState } from "react";
 import httpClient from "../httpClient";
-import { useUserContext } from "./UserContext"
 
 function LoginPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { setUserId } = useUserContext();
 
   const loginUser = async () => {
     console.log(email, password);
@@ -19,7 +17,6 @@ function LoginPage() {
       // good login takes you to this page
       if (resp.status == 200){
         //THIS is how you store the uder_id for later use
-        setUserId(resp.data.user_id);
         sessionStorage.setItem("user_id", resp.data.user_id)
         window.location.href = "/spalla-home"
       }

@@ -1,12 +1,9 @@
 
 import { Formik } from 'formik'
 import axios from 'axios'
-import { useUserContext } from './UserContext'
 
 function AddPatientForm() {
-    const { user } = useUserContext();
-    console.log("User", user);
-    
+
     const handleSubmit = async (values : any) => {
         try {
             const resp = await axios.post('http://localhost:5000/add-patient', values)
@@ -21,7 +18,7 @@ function AddPatientForm() {
   return (
     <div>
         <h1>AddPatient</h1>
-        <h3>ID: {user ? user.id : 'No user ID available'}</h3>
+        <h3>ID: </h3>
         <Formik
         initialValues={{
             firstName: '',
