@@ -19,6 +19,7 @@ function AddPatientForm() {
   }, []);
 
   const handleSubmit = async (values: any) => {
+    values.user_id = user?.id;
     try {
       const resp = await axios.post(
         "http://localhost:5000/add-patient",
@@ -133,7 +134,7 @@ function AddPatientForm() {
                 onChange={handleChange}
               />
             </label>
-            <label>
+            {/* <label>
               Security Check Enter your Spalla ID:
               <input
                 type = "text"
@@ -141,7 +142,7 @@ function AddPatientForm() {
                 value={values.user_id}
                 onChange={handleChange}
               />
-            </label>
+            </label> */}
             <button type="submit">Submit</button>
           </form>
         )}

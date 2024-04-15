@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from flask_sqlalchemy import SQLAlchemy
 from uuid import uuid4
+from sqlalchemy_serializer import SerializerMixin
 
 db = SQLAlchemy()
 # this will generate a unique id
@@ -13,7 +14,7 @@ user_patient_association = db.Table(
     db.Column('patient_id', db.Integer, db.ForeignKey('patients.id'))
 )
 
-class User(db.Model):
+class User(db.Model, SerializerMixin):
     __tablename__ = "users"
     # default id will be generated if none
     id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
@@ -24,6 +25,8 @@ class User(db.Model):
     relationship = db.Column(db.String)
     # add the rest of attributres and auth stuff here
     patients = db.relationship('Patient', secondary=user_patient_association, backref='users')
+    class Serializer:
+        exclude = ('password',)
 
 #     @property
 #     def password_hash(self):
@@ -37,7 +40,7 @@ class User(db.Model):
 #         self._password_hash = hash_object_as_string
 
 
-class Patient(db.Model):
+class Patient(db.Model, SerializerMixin):
     __tablename__ = "patients"
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
