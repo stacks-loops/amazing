@@ -16,6 +16,8 @@ function LoginPage() {
       
       // good login takes you to this page
       if (resp.status == 200){
+        //THIS is how you store the uder_id for later use
+        sessionStorage.setItem("user_id", resp.data.user_id)
         window.location.href = "/spalla-home"
       }
       

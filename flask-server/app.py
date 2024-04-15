@@ -32,37 +32,6 @@ api = Api(app)
 # Instantiate CORS
 CORS(app, origins='http://localhost:5173', supports_credentials=True)
 
-#define form structure and route for addpatient intake form
-@app.route('/add-patient', methods=["POST"])
-def add_patient():
-    data = request.json
-
-    #dob needs to be chnaged to python
-    dob = datetime.strptime(data.get('dob'), '%Y-%m-%d').date()
-
-    new_patient = Patient(
-            first_name=data.get('firstName'),
-            last_name=data.get('lastName'),
-            dob=dob,
-            age=data.get('age'),
-            patient_phone=data.get('patientPhone'),
-            patient_email=data.get('patientEmail'),
-            patient_address=data.get('patientAddress'),
-            hospital_name=data.get('hospitalName'),
-            room_number=data.get('roomNumber'),
-            health_concerns=data.get('healthConcerns')
-        )
-    db.session.add(new_patient)
-    db.session.commit()
-
-    #get the id of the user who is logged in
-    user_id = session.get("user_id")
-    #add to the realtionship table
-    user_patient_entry = user_patient_association.insert().values(user_id=user_id, patient_id=new_patient.id)
-    db.session.execute(user_patient_entry)
-    db.session.commit()
-
-    return jsonify({"SUCCESS": "Your patient has been added"}), 201
 
 #get current info route
 @app.route("/@me", methods=["GET"])
@@ -129,6 +98,44 @@ def login_user():
         "id": user.id,
         "email": user.email
     })
+#define form structure and route for addpatient intake form
+@app.route('/add-patient', methods=["POST"])
+def add_patient():
+    data = request.json
+
+    #dob needs to be chnaged to python
+    dob = datetime.strptime(data.get('dob'), '%Y-%m-%d').date()
+
+    try:
+        new_patient = Patient(
+                first_name=data.get('firstName'),
+                last_name=data.get('lastName'),
+                dob=dob,
+                age=data.get('age'),
+                patient_phone=data.get('patientPhone'),
+                patient_email=data.get('patientEmail'),
+                patient_address=data.get('patientAddress'),
+                hospital_name=data.get('hospitalName'),
+                room_number=data.get('roomNumber'),
+                health_concerns=data.get('healthConcerns')
+    )
+        db.session.add(new_patient)
+        db.session.commit()
+
+        user_id = session.get('user_id')
+
+        user = User.query.filter_by(id=user_id).first()
+
+        user_patient_entry = user_patient_association.insert().values(user_id=user, patient_id=new_patient.id)
+        db.session.execute(user_patient_entry)
+        db.session.commit()
+
+        return jsonify({"success": "Patient added succesfully"}), 201
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+   
 
 @app.route("/logout", methods=["POST"])
 def logout_user():
