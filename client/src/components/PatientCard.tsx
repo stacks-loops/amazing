@@ -33,6 +33,14 @@ function PatientCard({ patient } : { patient: Patient }) {
         <li className="list-group-item">Health Concerns: {patient.healthConcerns}</li>
       </ul>
       </div>
+      <div>
+        {handleEdit && (
+          <button onClick={() => handleEdit(patient)}>Edit</button>
+        )}
+        {handleDelete && (
+          <button onClick={() => handleDelete(patient)}>Delete</button>
+        )}
+      </div>
       </div>
   )
 }

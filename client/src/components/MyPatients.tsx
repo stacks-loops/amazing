@@ -125,7 +125,7 @@ function MyPatients() {
       {editingPatient && (
         <div>
           <h2>Edit Patient</h2>
-          <form onSubmit={() => (handleEditPatient)}>
+          <form onSubmit={handleEditPatient}>
             <input
               type="text"
               name="firstName"
