@@ -12,6 +12,7 @@ User can:
 Access the website
 Create an account
 Login
+Stay logged in
 Logout
 Navigate to pages
 Add a patient

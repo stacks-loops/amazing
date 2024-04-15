@@ -1,8 +1,11 @@
-import React from 'react'
+import React form 'react'
 
-export const PatientCard = () => {
-  return (
-    <div>PatientCard</div>
-  )
+
+
+function PatientCard(){
+
 }
+
+
+
 
