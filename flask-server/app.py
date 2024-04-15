@@ -105,7 +105,6 @@ def add_patient():
 
     #dob needs to be chnaged to python
     dob = datetime.strptime(data.get('dob'), '%Y-%m-%d').date()
-
     try:
         new_patient = Patient(
                 first_name=data.get('firstName'),
@@ -122,15 +121,28 @@ def add_patient():
         db.session.add(new_patient)
         db.session.commit()
 
-        user_id = session.get('user_id')
+        user_id = data.get('user_id')
+        if user_id:
+            user = User.query.get(user_id)
 
-        user = User.query.filter_by(id=user_id).first()
+            if user:
+                user.patients.append(new_patient)
+                db.session.commit()
+            else:
+                return jsonify({"error": "user not found"}), 404
+        else: 
+            return jsonify({"error": "user id not provided"}), 400
+        
+        return jsonify({"Success": "Patient added succesfully"}), 201
 
-        user_patient_entry = user_patient_association.insert().values(user_id=user, patient_id=new_patient.id)
-        db.session.execute(user_patient_entry)
-        db.session.commit()
 
-        return jsonify({"success": "Patient added succesfully"}), 201
+        # user = User.query.filter_by(id=user_id).first()
+
+        # user_patient_entry = user_patient_association.insert().values(user_id=user, patient_id=new_patient.id)
+        # db.session.execute(user_patient_entry)
+        # db.session.commit()
+
+        # return jsonify({"success": "Patient added succesfully"}), 201
 
     except Exception as e:
         db.session.rollback()

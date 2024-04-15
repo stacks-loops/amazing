@@ -47,6 +47,7 @@ function AddPatientForm() {
           hospitalName: "",
           roomNumber: "",
           healthConcerns: "",
+          user_id: ""
         }}
         onSubmit={handleSubmit}
       >
@@ -129,6 +130,15 @@ function AddPatientForm() {
               <textarea
                 name="healthConcerns"
                 value={values.healthConcerns}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Security Check Enter your Spalla ID:
+              <input
+                type = "text"
+                name="user_id"
+                value={values.user_id}
                 onChange={handleChange}
               />
             </label>
