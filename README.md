@@ -1,3 +1,16 @@
+REQUIREMENTS
+Implement Flask and SQLAlchemy in an application backend. CHECK
+Include a many to many relationship. CHECK
+Implement a minimum of 4 models. 2 of 4
+Implement a minimum of 3 client side routes using React router. CHECK
+Include full CRUD on at least 1 model, following REST conventions. NOT CHECK
+Implement validations and error handling. INCLUDED BUT NOT EVERYWHERE
+Implement something new not taught in the curriculum. (Check in with me to ensure the scope of your idea is appropriate.) DOLPHINATELY
+Implement authentication and authorization I THINK SO?
+
+† It's ok if your CRUD takes place on different models, as long as there is full CRUD
+†† Please discuss with me if you have any issues aligning these requirements with your project.
+
 STACK
 
 Flask application that authenticates using server side session
@@ -12,6 +25,8 @@ axios
 flask-cors
 prettier
 formik
+
+
 
 cd client
 npm run dev to open with vite
@@ -30,3 +45,27 @@ open in sqlite3
 ctrl shift p 
 wrap
 whatever html wrapper you want
+
+  try:
+        patients = Patient.query.all()
+        serialized_patients = []
+        for patient in patients:
+            serialized_patient = {
+                "id": patient.id,
+                "firstName": patient.first_name,
+                "lastName": patient.last_name,
+                "dob": patient.dob.strftime('%Y-%m-%d'),
+                "age": patient.age,
+                "patientPhone": patient.patient_phone,
+                "patientEmail": patient.patient_email,
+                "patientAddress": patient.patient_address,
+                "hospitalName": patient.hsopital_name,
+                "roomNumber": patient.room_number,
+                "healthConcerns": patient.healht_concerns
+
+            }
+            serialized_patients.append(serialized_patient)
+        return jsonify(serialized_patients), 200
+    except Exception as e:
+        return jsonify({"error", str(e)}), 500
+    # try:

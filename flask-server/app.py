@@ -148,37 +148,22 @@ def add_patient():
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
    
-@app.route('/my-patients', methods=["GET"])
+@app.route('/my-patients', methods=["GET"], static_folder=None)
 def my_patients():
-    try:
-        patients = Patient.query.all()
-        serialized_patients = []
-        for patient in patients:
-            serialized_patient = {
-                "id": patient.id,
-                "firstName": patient.first_name,
-                "lastName": patient.last_name,
-                "dob": patient.dob.strftime('%Y-%m-%d'),
-                "age": patient.age,
-                "patientPhone": patient.patient_phone,
-                "patientEmail": patient.patient_email,
-                "patientAddress": patient.patient_address,
-                "hospitalName": patient.hsopital_name,
-                "roomNumber": patient.room_number,
-                "healthConcerns": patient.healht_concerns
+    user_id = session.get("user_id")
+    if not user_id:
+        return jsonify({"error", "Unauthorized"}), 401
+    user = User.query.get(user_id)
 
-            }
-            serialized_patients.append(serialized_patient)
-        return jsonify(serialized_patients), 200
-    except Exception as e:
-        return jsonify({"error", str(e)}), 500
-    # try:
-    #     patients = Patient.query.all()
-    #     serialized_patients = [patient.to_dict() for patient in patients]
-    #     return jsonify(serialized_patients), 200
-    # except Exception as e:
-    #     return jsonify({"error": str(e)}), 500
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    
+    patients = user.patients.all()
 
+    patient_data = [patient.to_dict() for patient in patients]
+
+    return jsonify(patient_data)
+  
 
 @app.route("/logout", methods=["POST"])
 def logout_user():
