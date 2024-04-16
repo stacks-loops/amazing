@@ -40,7 +40,7 @@ function AddPatientForm() {
         initialValues={{
           firstName: "",
           lastName: "",
-          dob: "",
+          birthday: "",
           age: "",
           patientPhone: "",
           patientEmail: "",
@@ -76,8 +76,8 @@ function AddPatientForm() {
               Date of Birth:
               <input
                 type="text"
-                name="dob"
-                value={values.dob}
+                name="birthday"
+                value={values.birthday}
                 onChange={handleChange}
               />
             </label>

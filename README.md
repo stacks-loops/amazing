@@ -98,3 +98,14 @@ whatever html wrapper you want
   //     roomNumber: "",
   //     healthConcerns: "",
   //   });
+
+  #     @property
+#     def password_hash(self):
+#         return self._password_hash
+    
+#     @password_hash.setter
+#     def password_hash(self, password):
+#         byte_object = password.encode('utf-8')
+#         bcrypt_hash = bcrypt.generate_password_hash(byte_object)
+#         hash_object_as_string = bcrypt_hash.decode('utf-8')
+#         self._password_hash = hash_object_as_string
