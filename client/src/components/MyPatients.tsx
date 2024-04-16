@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import axios from "axios";
 import httpClient from "../httpClient";
 import PatientCard from "./PatientCard";
@@ -19,6 +19,11 @@ interface Patient {
 
 function MyPatients() {
   const [patients, setPatients] = useState<Patient[]>([]);
+//   const handleEditPatient = async (patient: Patient) => {
+
+//   }
+  const [editingPatient, setEditingPatient] = useState<Patient | null>(null);
+
   //   console.log(patients)
   //   const [newPatient, setNewPatient] = useState({
   //     firstName: "",
@@ -32,7 +37,6 @@ function MyPatients() {
   //     roomNumber: "",
   //     healthConcerns: "",
   //   });
-  const [editingPatient, setEditingPatient] = useState<Patient | null>(null);
 
   useEffect(() => {
     fetchPatients();
@@ -76,8 +80,19 @@ function MyPatients() {
   //       [name]: value,
   //     }));
   //   };
-  const handleEditPatient = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const deletePatient = async (id: number) => {
+    try {
+      await httpClient.delete(`/my-patients/${id}`);
+      fetchPatients();
+    } catch (error) {
+      console.error("Error deleting patient", error);
+    }
+  };
+  const handleEditPatient = async (patient: Patient, isEditing: boolean) => {
+   
+    if (isEditing) {
+        setEditingPatient(patient);
+    }
 
     if (!editingPatient) return;
 
@@ -97,20 +112,15 @@ function MyPatients() {
       console.error("Error updating patient", error);
     }
   };
-//   const deletePatient = async (id: number) => {
-//     try {
-//       await axios.delete(`/my-patients/${id}`);
-//       fetchPatients();
-//     } catch (error) {
-//       console.error("Error deleting patient", error);
-//     }
-//   };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
-    if (!editingPatient)((prevPatient: Patient) => ({
+    if (!editingPatient) return; 
+
+    setEditingPatient((prevPatient) => ({
       ...prevPatient,
-      [name]: value,
+      [name]: value ? value : prevPatient[name],
     }));
+    console.log(`previous value for ${name} ${previousValue}`)
   };
   return (
     <div>
@@ -118,7 +128,11 @@ function MyPatients() {
       <div className="row">
         {patients.map((patient) => (
           <div key={patient.id} className="col-md-4 mb-4">
-            <PatientCard patient={patient} />
+            <PatientCard 
+            patient={patient} 
+            handleEdit={handleEditPatient}
+            handleDelete={() => deletePatient(patient.id)}
+                />
           </div>
         ))}
       </div>

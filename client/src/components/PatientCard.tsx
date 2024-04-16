@@ -1,5 +1,7 @@
 import React from 'react';
 
+import MyPatients from './MyPatients';
+
 interface Patient {
   id: number;
   firstName: string;
@@ -15,7 +17,7 @@ interface Patient {
 
 }
 
-function PatientCard({ patient } : { patient: Patient }) {
+function PatientCard({ patient, handleEdit }) {
   return (
     <div className="card mb-4">
       <div className="card-header">
@@ -34,12 +36,8 @@ function PatientCard({ patient } : { patient: Patient }) {
       </ul>
       </div>
       <div>
-        {handleEdit && (
-          <button onClick={() => handleEdit(patient)}>Edit</button>
-        )}
-        {handleDelete && (
-          <button onClick={() => handleDelete(patient)}>Delete</button>
-        )}
+          <button id="editButton" onClick={(e) => handleEdit(patient, true, e)}>Edit</button>
+    
       </div>
       </div>
   )
