@@ -166,7 +166,33 @@ def my_patients():
     patient_data = [patient.to_dict() for patient in patients]
 
     return jsonify(patient_data)
-  
+
+@app.route('patients/<int:patient_id', methods=['PUT'])
+def update_patient(patient_id):
+    user_id = session.get("user_id")
+    if not user_id:
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    user = User.query.filter_by(id=user_id).first()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    
+    patient = Patient.query.get(patient_id)
+    if not patient:
+        return jsonify({"error": "Patient not found"}), 404
+    
+    data = request.json
+
+    patient.firstName = data.get('firstName', patient.firstName)
+    patient.lastName = data.get('lastName', patient.lastName)
+
+    try:
+        db.session.commit()
+        return jsonify({"message": "patient updated"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route("/logout", methods=["POST"])
 def logout_user():

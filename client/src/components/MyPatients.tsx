@@ -89,19 +89,27 @@ function MyPatients() {
   };
   const handleEditPatient = async (patient: Patient) => {
 
-
     if(!patient) {
         console.error("Patient object is not available for editing")
-        return
+        return;
     }
 
-    const updatedPatient: Partial<Patient> = {};
+    const updatedPatient: Partial<Patient> = {
+        id: patient.id,
+        firstName: patient.firstName,
+        lastName: patient.lastName
+    };
 
-      const resp = await httpClient.put(`/patients`,updatedPatient);
+    try {
+     const resp = await httpClient.put(`/patients`,updatedPatient);
       console.log("Patient updated", resp.data);
       setEditingPatient(null);
       fetchPatients();
+    } catch (error) {
+        console.error("Error updating patient", error)
     }
+      
+}
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     if (!editingPatient) return;
