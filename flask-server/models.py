@@ -45,7 +45,7 @@ class Patient(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
-    dob = db.Column(db.Date, nullable=False)
+    birthday = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer)
     patient_phone = db.Column(db.Integer)
     patient_email = db.Column(db.String, nullable=False)
@@ -53,7 +53,7 @@ class Patient(db.Model, SerializerMixin):
     hospital_name = db.Column(db.String(50), nullable=False)
     room_number = db.Column(db.Integer)
     health_concerns = db.Column(db.String)
-    
+
     serialize_rules = ("-users.patients",)
 
 

@@ -75,7 +75,7 @@ function AddPatientForm() {
             <label>
               Date of Birth:
               <input
-                type="date"
+                type="text"
                 name="dob"
                 value={values.dob}
                 onChange={handleChange}

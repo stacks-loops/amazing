@@ -103,14 +103,11 @@ def login_user():
 @app.route('/add-patient', methods=["POST"])
 def add_patient():
     data = request.json
-
-    #dob needs to be chnaged to python
-    dob = datetime.strptime(data.get('dob'), '%Y-%m-%d').date()
     try:
         new_patient = Patient(
                 first_name=data.get('firstName'),
                 last_name=data.get('lastName'),
-                dob=dob,
+                birthday=data.get('birthday'),
                 age=data.get('age'),
                 patient_phone=data.get('patientPhone'),
                 patient_email=data.get('patientEmail'),
@@ -170,7 +167,7 @@ def my_patients():
 @app.route('/patients/<id>', methods=['PUT'])
 def update_patient(id):
 
-    patient = Patient.query.get(id)
+    patient = Patient.query.filter_by(id=id).first()
 
     if not patient:
         return jsonify({"error", "Patient not found"}), 404
@@ -178,16 +175,17 @@ def update_patient(id):
     data = request.json
     if not data:
         return jsonify({"error": "No data provided"}), 400
-                       
-    if 'firstName' in data:
-        patient.firstName = data['firstName']
-    if 'lastName' in data:
-        patient.lastName = data['lastName']
+    
+    for field, value in data.items():
+        setattr(patient, field, value)
     
     try:
         db.session.commit()
-        return jsonify({"message": "patient updated succesfully"}), 200
-  
+        patient = Patient.query.filter_by(id=id).first()
+        return jsonify({"message": "patient updated succesfully", "patient": patient.serialize()}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/logout", methods=["POST"])
 def logout_user():

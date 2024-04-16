@@ -4,16 +4,16 @@ import PatientCard from "./PatientCard";
 
 interface Patient {
   id: number;
-  firstName: string;
-  lastName: string;
-  dob: string;
+  first_name: string;
+  last_name: string;
+  birthday: string;
   age: number;
-  patientPhone: string;
-  patientEmail: string;
-  patientAddress: string;
-  hospitalName: string;
-  roomNumber: number;
-  healthConcerns: string;
+  patient_phone: string;
+  patient_email: string;
+  patient_address: string;
+  hospital_name: string;
+  room_number: number;
+  health_concerns: string;
 }
 
 function MyPatients() {
@@ -34,7 +34,7 @@ function MyPatients() {
       console.error("Error fetching patients:", error);
     }
   };
- 
+
   const deletePatient = async (id: number) => {
     try {
       await httpClient.delete(`/my-patients/${id}`);
@@ -44,17 +44,23 @@ function MyPatients() {
     }
   };
   const handleEditClick = (patient: Patient) => {
-    setEditingPatient(patient)
-  }
+    setEditingPatient(patient);
+  };
 
   const handleEditPatient = async (e: FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!editingPatient) {
       console.error("Patient object is not available for editing");
       return;
     }
+    const updateData = {
+      ...editingPatient,
+    };
     try {
-      const resp = await httpClient.put(`/patients/${editingPatient.id}`, editingPatient);
+      const resp = await httpClient.put(
+        `/patients/${editingPatient.id}`,
+        updateData
+      );
       console.log("Patient updated", resp.data);
       setEditingPatient(null);
       fetchPatients();
@@ -69,7 +75,7 @@ function MyPatients() {
 
     setEditingPatient((prevPatient: Patient | null) => ({
       ...(prevPatient as Patient),
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -91,20 +97,18 @@ function MyPatients() {
         <div>
           <h2>Edit Patient</h2>
           <form onSubmit={handleEditPatient}>
-            <input
-              type="text"
-              name="firstName"
-              value={editingPatient.firstName}
-              onChange={handleChange}
-            />
-            <br />
-            <input
-              type="text"
-              name="lastName"
-              value={editingPatient.lastName}
-              onChange={handleChange}
-            />
-            <br />
+            {Object.entries(editingPatient).map(([fieldName, fieldValue]) => (
+              <div key={fieldName}>
+                <label htmlFor={fieldName}>{fieldName}</label>
+                <input
+                  type="text"
+                  id={fieldName}
+                  name={fieldName}
+                  value={fieldValue}
+                  onChange={handleChange}
+                />
+              </div>
+            ))}
             <button type="submit">Update Patient Changes</button>
           </form>
         </div>

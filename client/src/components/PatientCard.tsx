@@ -1,19 +1,18 @@
-import React from 'react';
-import MyPatients from './MyPatients';
+
 import { FormEvent } from 'react';
 
 interface Patient {
   id: number;
-  firstName: string;
-  lastName: string;
-  dob: string;
+  first_name: string;
+  last_name: string;
+  birthday: string;
   age: number;
-  patientPhone: string;
-  patientEmail: string;
-  patientAddress: string;
-  hospitalName: string;
-  roomNumber: number;
-  healthConcerns: string;
+  patient_phone: string;
+  patient_email: string;
+  patient_address: string;
+  hospital_name: string;
+  room_number: number;
+  health_concerns: string;
 
 }
 
@@ -31,18 +30,18 @@ function PatientCard({ patient, handleEdit }: PatientCardProps) {
   return (
     <div className="card mb-4">
       <div className="card-header">
-      <h5 className="card-title">{patient.firstName} {patient.lastName}</h5>
+      <h5 className="card-title">{patient.first_name} {patient.last_name}</h5>
     </div>
       <div className="card-body">
       <ul className="list-group list-group-flush">
-        <li className="list-group-item">Date of Birth: {patient.dob}</li>
+        <li className="list-group-item">Date of Birth: {patient.birthday}</li>
         <li className="list-group-item">Age: {patient.age}</li>
-        <li className="list-group-item">Phone: {patient.patientPhone}</li>
-        <li className="list-group-item">Email: {patient.patientEmail}</li>
-        <li className="list-group-item">Address: {patient.patientAddress}</li>
-        <li className="list-group-item">Hospital: {patient.hospitalName}</li>
-        <li className="list-group-item">Room Number: {patient.roomNumber}</li>
-        <li className="list-group-item">Health Concerns: {patient.healthConcerns}</li>
+        <li className="list-group-item">Phone: {patient.patient_phone}</li>
+        <li className="list-group-item">Email: {patient.patient_email}</li>
+        <li className="list-group-item">Address: {patient.patient_address}</li>
+        <li className="list-group-item">Hospital: {patient.hospital_name}</li>
+        <li className="list-group-item">Room Number: {patient.room_number}</li>
+        <li className="list-group-item">Health Concerns: {patient.health_concerns}</li>
       </ul>
       </div>
       <div>
