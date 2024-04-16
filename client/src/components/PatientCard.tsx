@@ -1,6 +1,6 @@
 import React from 'react';
-
 import MyPatients from './MyPatients';
+import { FormEvent } from 'react';
 
 interface Patient {
   id: number;
@@ -17,7 +17,17 @@ interface Patient {
 
 }
 
-function PatientCard({ patient, handleEdit }) {
+interface PatientCardProps {
+  patient: Patient;
+  handleEdit: (patient: Patient) => void;
+  handleDelete?: () => void;
+}
+
+function PatientCard({ patient, handleEdit }: PatientCardProps) {
+  const handleClickEdit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleEdit(e)
+  }
   return (
     <div className="card mb-4">
       <div className="card-header">
@@ -36,7 +46,9 @@ function PatientCard({ patient, handleEdit }) {
       </ul>
       </div>
       <div>
-          <button id="editButton" onClick={(e) => handleEdit(patient, true, e)}>Edit</button>
+          <form onSubmit={handleClickEdit}>
+            <button id="editButton" type="submit">Edit</button>
+            </form>
     
       </div>
       </div>
