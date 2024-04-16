@@ -87,30 +87,21 @@ function MyPatients() {
       console.error("Error deleting patient", error);
     }
   };
-  const handleEditPatient = async (e?: FormEvent<HTMLFormElement> | Event) => {
-    if (!e) return;
+  const handleEditPatient = async (patient: Patient) => {
 
-    if(!patients) {
+
+    if(!patient) {
         console.error("Patient object is not available for editing")
         return
     }
 
     const updatedPatient: Partial<Patient> = {};
 
-    try {
-      for (const element of (e.target as HTMLFormElement).elements) {
-        if(element instanceof HTMLInputElement) {
-            updatedPatient[element.name] = element.value;
-        }
-      } 
-      const resp = await httpClient.put(`/patients/${editingPatient.id}`,updatedPatient);
+      const resp = await httpClient.put(`/patients`,updatedPatient);
       console.log("Patient updated", resp.data);
       setEditingPatient(null);
       fetchPatients();
-    } catch (error) {
-      console.error("Error updating patient", error);
     }
-  };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     if (!editingPatient) return;
@@ -128,6 +119,7 @@ function MyPatients() {
         {patients.map((patient) => (
           <div key={patient.id} className="col-md-4 mb-4">
             <PatientCard
+              key={patient.id}
               patient={patient}
               handleEdit={handleEditPatient}
               handleDelete={() => deletePatient(patient.id)}

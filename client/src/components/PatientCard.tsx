@@ -26,7 +26,7 @@ interface PatientCardProps {
 function PatientCard({ patient, handleEdit }: PatientCardProps) {
   const handleClickEdit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleEdit(e)
+    handleEdit(patient)
   }
   return (
     <div className="card mb-4">
