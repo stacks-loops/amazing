@@ -83,3 +83,18 @@ whatever html wrapper you want
     except Exception as e:
         return jsonify({"error", str(e)}), 500
     # try:
+
+
+     //   console.log(patients)
+  //   const [newPatient, setNewPatient] = useState({
+  //     firstName: "",
+  //     lastName: "",
+  //     dob: "",
+  //     age: "",
+  //     patientPhone: "",
+  //     patientEmail: "",
+  //     patientAddress: "",
+  //     hospitalName: "",
+  //     roomNumber: "",
+  //     healthConcerns: "",
+  //   });

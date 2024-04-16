@@ -18,24 +18,7 @@ interface Patient {
 
 function MyPatients() {
   const [patients, setPatients] = useState<Patient[]>([]);
-  //   const handleEditPatient = async (patient: Patient) => {
-
-  //   }
   const [editingPatient, setEditingPatient] = useState<Patient | null>(null);
-
-  //   console.log(patients)
-  //   const [newPatient, setNewPatient] = useState({
-  //     firstName: "",
-  //     lastName: "",
-  //     dob: "",
-  //     age: "",
-  //     patientPhone: "",
-  //     patientEmail: "",
-  //     patientAddress: "",
-  //     hospitalName: "",
-  //     roomNumber: "",
-  //     healthConcerns: "",
-  //   });
 
   useEffect(() => {
     fetchPatients();
@@ -51,34 +34,7 @@ function MyPatients() {
       console.error("Error fetching patients:", error);
     }
   };
-  //   const addPatient = async () => {
-  //     try {
-  //       await axios.post("/patients", newPatient);
-  //       setNewPatient({
-  //         firstName: "",
-  //         lastName: "",
-  //         dob: "",
-  //         age: "",
-  //         patientPhone: "",
-  //         patientEmail: "",
-  //         patientddress: "",
-  //         hospitalName: "",
-  //         roomNumber: "",
-  //         healthConcerns: "",
-  //       });
-  //       //refresh here
-  //       fetchPatients();
-  //     } catch (error) {
-  //       console.error("Error adding new patient:", error);
-  //     }
-  // //   };
-  //   const handleChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setNewPatient((prevPatient) => ({
-  //       ...prevPatient,
-  //       [name]: value,
-  //     }));
-  //   };
+ 
   const deletePatient = async (id: number) => {
     try {
       await httpClient.delete(`/my-patients/${id}`);
@@ -87,40 +43,36 @@ function MyPatients() {
       console.error("Error deleting patient", error);
     }
   };
-  const handleEditPatient = async (patient: Patient) => {
+  const handleEditClick = (patient: Patient) => {
+    setEditingPatient(patient)
+  }
 
-    if(!patient) {
-        console.error("Patient object is not available for editing")
-        return;
+  const handleEditPatient = async (e: FormEvent) => {
+    e.preventDefault()
+    if (!editingPatient) {
+      console.error("Patient object is not available for editing");
+      return;
     }
-
-    const updatedPatient: Partial<Patient> = {
-        id: patient.id,
-        firstName: patient.firstName,
-        lastName: patient.lastName
-    };
-
     try {
-     const resp = await httpClient.put(`/patients`,updatedPatient);
+      const resp = await httpClient.put(`/patients/${editingPatient.id}`, editingPatient);
       console.log("Patient updated", resp.data);
       setEditingPatient(null);
       fetchPatients();
     } catch (error) {
-        console.error("Error updating patient", error)
+      console.error("Error updatingggg patient", error);
     }
+  };
 
-      
-}
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     if (!editingPatient) return;
 
-    setEditingPatient((prevPatient) => ({
-      ...prevPatient,
-      [name]: value ? value : prevPatient[name],
+    setEditingPatient((prevPatient: Patient | null) => ({
+      ...(prevPatient as Patient),
+      [name]: value
     }));
-    console.log(`previous value for ${name} ${previousValue}`);
   };
+
   return (
     <div>
       <h2>MyPatients</h2>
@@ -128,9 +80,8 @@ function MyPatients() {
         {patients.map((patient) => (
           <div key={patient.id} className="col-md-4 mb-4">
             <PatientCard
-              key={patient.id}
               patient={patient}
-              handleEdit={handleEditPatient}
+              handleEdit={handleEditClick}
               handleDelete={() => deletePatient(patient.id)}
             />
           </div>
@@ -143,14 +94,14 @@ function MyPatients() {
             <input
               type="text"
               name="firstName"
-              value={editingPatient?.firstName || ""}
+              value={editingPatient.firstName}
               onChange={handleChange}
             />
             <br />
             <input
               type="text"
               name="lastName"
-              value={editingPatient?.lastName || ""}
+              value={editingPatient.lastName}
               onChange={handleChange}
             />
             <br />
