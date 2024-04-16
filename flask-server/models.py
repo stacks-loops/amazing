@@ -44,8 +44,28 @@ class Patient(db.Model, SerializerMixin):
 
     serialize_rules = ("-users.patients",)
 
+class Nurse(db.Model, SerializerMixin):
+    __tablename__ = "nurses"
+    id = db.Column(db.Integer, primary_key=True)
+    nurse_name = db.Column(db.String(50))
 
-    # add the rest of attributres and auth stuff here
+    hospitals = db.relationship(
+        "Hospital", secondary="hospital_nurse_association", backref="nurses"
+    )
+    class Serializer:
+        pass
+
+class Hospital(db.Model, SerializerMixin):
+    __tablename__ = "hospitals"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+
+    nurses = db.relationship(
+        "Nurse", secondary="hospital_nurse_association", backref="hospitals"
+    )
+
+    class Serializer:
+        pass
 
 #relationsips
 
