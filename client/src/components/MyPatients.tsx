@@ -108,6 +108,7 @@ function MyPatients() {
     } catch (error) {
         console.error("Error updating patient", error)
     }
+
       
 }
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -167,7 +167,7 @@ def my_patients():
 
     return jsonify(patient_data)
 
-@app.route('/patients/<int:patient_id', methods=['PUT'])
+@app.route('/patients', methods=['PUT'])
 def update_patient(patient_id):
     user_id = session.get("user_id")
     if not user_id:
