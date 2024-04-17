@@ -68,6 +68,9 @@ class Hospital(db.Model, SerializerMixin):
 
     class Serializer:
         pass
+    @property 
+    def associated_nurses(self):
+        return self.nurses.all()
 
 #relationsips
 

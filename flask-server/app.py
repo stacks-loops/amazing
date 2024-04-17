@@ -1,7 +1,7 @@
 
 from flask import Flask, request, jsonify, session
 from config import ApplicationConfig
-from models import db, User, Patient, user_patient_association
+from models import db, User, Patient, user_patient_association, Hospital, Nurse, hospital_nurse_association
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -204,6 +204,11 @@ def delete_patient(id):
     db.session.commit()
 
     return jsonify({"message": "Patient deleted"}), 200
+
+@app.route('/hospitals')
+def hospitals():
+    hospitals = Hospital.query.all()
+    return redner_template
 
 @app.route("/logout", methods=["POST"])
 def logout_user():
