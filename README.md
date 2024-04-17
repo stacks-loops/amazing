@@ -3,7 +3,7 @@ Implement Flask and SQLAlchemy in an application backend. CHECK
 Include a many to many relationship. CHECK
 Implement a minimum of 4 models. 2 of 4
 Implement a minimum of 3 client side routes using React router. CHECK
-Include full CRUD on at least 1 model, following REST conventions. NOT CHECK
+Include full CRUD on at least 1 model, following REST conventions. FULL CRUD CHECK!!!
 Implement validations and error handling. INCLUDED BUT NOT EVERYWHERE
 Implement something new not taught in the curriculum. (Check in with me to ensure the scope of your idea is appropriate.) DOLPHINATELY
 Implement authentication and authorization I THINK SO? add 
