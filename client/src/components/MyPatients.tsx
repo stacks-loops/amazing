@@ -82,7 +82,7 @@ function MyPatients() {
 
   return (
     <div>
-      <h2>MyPatients</h2>
+      <h2 style={{ paddingLeft: "20px"}}>My Patients</h2>
       <div className="row">
         {patients.map((patient) => (
           <div key={patient.id} className="col-md-4 mb-4">

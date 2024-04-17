@@ -8,7 +8,7 @@ function HomePage() {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div className="card-overlay">
-        <div className="content">
+        <div className="content-card">
           {/* <img src={backgroundImage} alt="BackgroundImage" className="BackgroundImage" /> */}
           <h1>Spalla Healthcare Home</h1>
           <Link to="/login">Sign In</Link>
