@@ -67,6 +67,7 @@ function MyPatients() {
     } catch (error) {
       console.error("Error updatingggg patient", error);
     }
+    window.location.reload();
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
