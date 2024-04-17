@@ -276,7 +276,28 @@ def delete_nurses(id):
 
     return jsonify({"message": "Nurse removed"}), 200
 
-@
+@app.route('/nurse-hosp-rel', methods=['POST'])
+def create_nurse_hospital_relationship():
+    data = request.json
+    nurse_id = data.get('nurseId')
+    hospital_id = data.get('hospitalId')
+
+    if not nurse_id or not hospital_id:
+        return jsonify({"error": "Invalid data provided"}), 400
+    
+    nurse = Nurse.query.get(nurse_id)
+    hospital = Hospital.query.get(hospital_id)
+
+    if not nurse or not hospital:
+        return jsonify({"error": "Nurse or hospital not found"}), 404
+    
+    if nurse in hospital.nurses:
+        return jsonify({"error": "Relationship already exists"}), 400
+    
+    hospital.nurses.append(nurse)
+    db.session.commit()
+
+    return jsonify({"messagr": "Relationship created succesfully"}), 201
 
 @app.route("/logout", methods=["POST"])
 def logout_user():

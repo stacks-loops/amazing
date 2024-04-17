@@ -24,7 +24,7 @@ function Providers() {
         const nursesData = await nursesResp.json();
         setNurses(nursesData)
 
-        const hospitalResp = await fetch('/api/hospitals');
+        const hospitalResp = await fetch('/hospitals');
         const hospitalData = await hospitalResp.json();
         setHospitals(hospitalData)
     }
