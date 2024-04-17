@@ -22,7 +22,7 @@ interface PatientCardProps {
   handleDelete?: () => void;
 }
 
-function PatientCard({ patient, handleEdit }: PatientCardProps) {
+function PatientCard({ patient, handleEdit, handleDelete }: PatientCardProps) {
   const handleClickEdit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleEdit(patient)
@@ -48,6 +48,9 @@ function PatientCard({ patient, handleEdit }: PatientCardProps) {
           <form onSubmit={handleClickEdit}>
             <button id="editButton" type="submit">Edit</button>
             </form>
+            {handleDelete && (
+              <button onClick={handleDelete}>Delete</button>
+            )}
     
       </div>
       </div>

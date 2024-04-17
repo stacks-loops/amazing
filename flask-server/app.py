@@ -189,6 +189,21 @@ def update_patient(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
+    
+@app.route("/my-patients/<id>", methods=['DELETE'])
+def delete_patient(id):
+    user_id = session.get("user_id")
+    if not user_id:
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    patient = Patient.query.filter_by(id=id).first()
+    if not patient:
+        return jsonify({"error": "Patient not found"}), 404
+    
+    db.session.delete(patient)
+    db.session.commit()
+
+    return jsonify({"message": "Patient deleted"}), 200
 
 @app.route("/logout", methods=["POST"])
 def logout_user():
