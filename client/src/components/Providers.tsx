@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import httpClient from "../httpClient";
+import { Link } from "react-router-dom"
 
 interface Nurse {
   id: number;
@@ -13,35 +14,52 @@ export interface Hospital {
 }
 
 function Providers() {
-  const [hospitals, setHospitals] = useState<Hospital[]>([]);
+    const [nurses, setNurses] = useState<Nurse[]>([]);
+    const [hospitals, setHospitals] = useState<Hospital[]>([]);
+    const [selectedHospitalId, setSelectedHospitalId] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchHospitals = async () => {
-      try {
-        const resp = await httpClient.get<Hospital[]>("/hospitals");
-        setHospitals(resp.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchHospitals();
-  }, []);
+    async function fetchData() {
+        const nursesResp = await fetch('/nurses');
+        const nursesData = await nursesResp.json();
+        setNurses(nursesData)
+
+        const hospitalResp = await fetch('/api/hospitals');
+        const hospitalData = await hospitalResp.json();
+        setHospitals(hospitalData)
+    }
+    fetchData();
+}, []);
+     const createRel = async (nurseId: number, hospitalId: number) => {
+        const response = await fetch('/nurse-hosp-rel', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ nurseId, hospitalId }), 
+        });
+        const data = await response.json();
+     }
   return (
     <div>
       <h1>Hospitals and Nurses</h1>
       <ul>
-        {hospitals.map((hospital) => (
-          <li key={hospital.id}>
-            <h2>{hospital.name}</h2>
-            <ul>
-              <li>
-                <strong>Nurses:</strong>
-              </li>
-              {hospital.associated_nurses?.map((nurse: Nurse) => (
-                <li key={nurse.id}>{nurse.nurse_name}</li>
-              ))}
-            </ul>
-          </li>
+        {nurses.map((nurse) => (
+          <li key={nurse.id}>
+            {nurse.nurse_name}
+            <button onClick={() => createRel(nurse.id, selectedHospitalId!)}>
+                Associate with Hospital
+            </button>
+         </li>
+        ))}
+      </ul>
+      <h1>Hospitals</h1>
+      <ul>
+        {hospitals.map(hospital => (
+            <li key={hospital.id}>
+                {hospital.name}
+                <Link to='#' onClick={() => setSelectedHospitalId(hospital.id)}>Associate Nurses</Link>
+            </li>
         ))}
       </ul>
     </div>

@@ -226,6 +226,58 @@ def add_hospital():
     db.session.add(new_hosp)
     db.session.commit()
 
+    return jsonify({"message": "Hospital added"})
+
+@app.route('/hospitals/<id>', methods=['DELETE'])
+def delete_hospital(id):
+    hospital = Hospital.query.filter_by(id=id).first()
+
+    if not hospital:
+        return jsonify({"error": "Hospital not found"}), 404
+    
+    db.session.delete(hospital)
+    db.session.commit()
+
+    return jsonify({"message": "Hospital deleted"}), 200
+
+@app.route('/nurses', methods=['GET'])
+def nurses():
+    nurses = Nurse.query.all()
+
+    if not nurses:
+        return jsonify({"error": "No nurses found"}), 404
+    
+    return jsonify(nurses)
+
+@app.route('/nurses', methods=['POST'])
+def add_nurses():
+    data = request.get_json()
+    if not data: 
+        return jsonify({"error": "Invalid data provided"}), 400
+    new_nurse = Nurse(
+        nurse_name = data.get("nurse_name"),
+    )
+
+    db.session.add(new_nurse)
+    db.session.commit()
+
+    return jsonify({"message": "Nurse added"})
+
+@app.route('/nurses/<id>', methods=['DELETE'])
+def delete_nurses(id):
+
+    nurse = Nurse.query.filter_by(id=id).first()
+
+    if not nurse:
+        return jsonify({"error": "Nurse not found"}), 404
+    
+    db.session.delete(nurse)
+    db.session.commit()
+
+    return jsonify({"message": "Nurse removed"}), 200
+
+@
+
 @app.route("/logout", methods=["POST"])
 def logout_user():
     session.pop("user_id")
