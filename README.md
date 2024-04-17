@@ -7,6 +7,9 @@ Include full CRUD on at least 1 model, following REST conventions. FULL CRUD CHE
 Implement validations and error handling. INCLUDED BUT NOT EVERYWHERE
 Implement something new not taught in the curriculum. (Check in with me to ensure the scope of your idea is appropriate.) DOLPHINATELY
 Implement authentication and authorization I THINK SO? add 
+
+        # associated_nurses = Marshmallow.fields.List(fields.Nested('NurseSerializer'))
+
  
 User can:
 Access the website

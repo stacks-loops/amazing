@@ -57,6 +57,8 @@ class Nurse(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     nurse_name = db.Column(db.String(50))
 
+    serialize_only = ('id', 'nurse_name')
+
     # hospitals = db.relationship(
     #     "Hospital", secondary="hospital_nurse_association", backref="nurses"
     # )
@@ -74,7 +76,6 @@ class Hospital(db.Model, SerializerMixin):
 
     class Serializer:
         pass
-        # associated_nurses = Marshmallow.fields.List(fields.Nested('NurseSerializer'))
 
 #relationsips
 

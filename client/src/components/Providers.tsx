@@ -20,25 +20,28 @@ function Providers() {
 
   useEffect(() => {
     async function fetchData() {
-        const nursesResp = await fetch('/nurses');
-        const nursesData = await nursesResp.json();
-        setNurses(nursesData)
+        try {
+            const nursesResp = await httpClient.get('/nurses');
+            setNurses(nursesResp.data);
 
-        const hospitalResp = await fetch('/hospitals');
-        const hospitalData = await hospitalResp.json();
-        setHospitals(hospitalData)
+            const hospitalResp = await httpClient.get('/hospitals')
+            setHospitals(hospitalResp.data);
+        } catch (error) {
+            console.error('Error fetching data', error)
+        }
     }
     fetchData();
 }, []);
      const createRel = async (nurseId: number, hospitalId: number) => {
-        const response = await fetch('/nurse-hosp-rel', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({ nurseId, hospitalId }), 
-        });
-        const data = await response.json();
+        try {
+            const response = await httpClient.post('/nurse-hosp-rel', { nurseId, hospitalId });
+
+            const data = await response.data()
+            console.log('Relationship established', data)
+
+        } catch (error) {
+            console.error('Error creating relationship', error)
+        }
      }
   return (
     <div>

@@ -208,11 +208,12 @@ def delete_patient(id):
 @app.route('/hospitals', methods=['GET'])
 def hospitals():
     hospitals = Hospital.query.all()
+    serialized_hospitals = [hospital.to_dict() for hospital in hospitals]
 
     if not hospitals:
         return jsonify({"error": "No hospitals found"}), 404
     
-    return jsonify(hospitals)
+    return jsonify(serialized_hospitals)
 
 @app.route('/hospitals', methods=['POST'])
 def add_hospital():
@@ -243,11 +244,11 @@ def delete_hospital(id):
 @app.route('/nurses', methods=['GET'])
 def nurses():
     nurses = Nurse.query.all()
-
+    serialized_nurses = [nurse.to_dict() for nurse in nurses]
     if not nurses:
         return jsonify({"error": "No nurses found"}), 404
     
-    return jsonify(nurses)
+    return jsonify(serialized_nurses)
 
 @app.route('/nurses', methods=['POST'])
 def add_nurses():
