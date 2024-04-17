@@ -167,21 +167,24 @@ def my_patients():
 @app.route('/patients/<id>', methods=['PUT'])
 def update_patient(id):
 
+    data = request.json
     patient = Patient.query.filter_by(id=id).first()
 
-    if not patient:
-        return jsonify({"error", "Patient not found"}), 404
-
-    data = request.json
     if not data:
         return jsonify({"error": "No data provided"}), 400
-    
-    for field, value in data.items():
-        setattr(patient, field, value)
-    
+    changes = {}
+    # ipdb.set_trace()
+    changes = {field: value for field, value in data.items() if field != "id" and field != "users"}
+
+    for field, value in changes.items():
+        if hasattr(patient, field):
+            setattr(patient, field, value)
+
+    db.session.add(patient)
+        
     try:
         db.session.commit()
-        patient = Patient.query.filter_by(id=id).first()
+        # patient = Patient.query.filter_by(id=id).first()
         return jsonify({"message": "patient updated succesfully", "patient": patient.serialize()}), 200
     except Exception as e:
         db.session.rollback()

@@ -44,6 +44,12 @@ class Patient(db.Model, SerializerMixin):
 
     serialize_rules = ("-users.patients",)
 
+hospital_nurse_association = db.Table(
+    "hospital_nurse_association",
+    db.Column("hospital_id", db.Integer, db.ForeignKey("hospitals.id")),
+    db.Column("nurse_id", db.Integer, db.ForeignKey("nurses.id")),
+)
+
 class Nurse(db.Model, SerializerMixin):
     __tablename__ = "nurses"
     id = db.Column(db.Integer, primary_key=True)
@@ -59,10 +65,6 @@ class Hospital(db.Model, SerializerMixin):
     __tablename__ = "hospitals"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
-
-    nurses = db.relationship(
-        "Nurse", secondary="hospital_nurse_association", backref="hospitals"
-    )
 
     class Serializer:
         pass
