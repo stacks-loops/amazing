@@ -63,6 +63,15 @@ function Providers() {
   return (
     <div>
       <h1>Hospitals and Nurses</h1>
+      <h1>Select A Hospitals</h1>
+      <ul>
+        {hospitals.map(hospital => (
+            <li key={hospital.id}>
+                {hospital.name}
+                <Link to='#' onClick={() => setSelectedHospitalId(hospital.id)}>Select</Link>
+            </li>
+        ))}
+      </ul>
       <ul>
         {nurses.map((nurse) => (
           <li key={nurse.id}>
@@ -71,15 +80,6 @@ function Providers() {
                 Assign Nurse to This Hospital
             </button>
          </li>
-        ))}
-      </ul>
-      <h1>Select A Hospitals</h1>
-      <ul>
-        {hospitals.map(hospital => (
-            <li key={hospital.id}>
-                {hospital.name}
-                <Link to='#' onClick={() => setSelectedHospitalId(hospital.id)}>Associate Nurses</Link>
-            </li>
         ))}
       </ul>
       {errorMessage && <ErrorModal message={errorMessage} onClose={handleCloseError}/>}
