@@ -300,6 +300,16 @@ def create_nurse_hospital_relationship():
 
     return jsonify({"messagr": "Relationship created succesfully"}), 201
 
+@app.route('/clear-associations', methods=['DELETE'])
+def clear_associations():
+    try:
+        hospital_nurse_association.query.delete()
+        db.session.commit()
+        return jsonify({"messaage": "Hospital-nurse associations cleared"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/logout", methods=["POST"])
 def logout_user():
     session.pop("user_id")

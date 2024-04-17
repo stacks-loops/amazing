@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import httpClient from "../httpClient";
 import PatientCard from "./PatientCard";
+import { Link } from "react-router-dom";
 
 interface Patient {
   id: number;
@@ -80,9 +81,17 @@ function MyPatients() {
     }));
   };
 
+
   return (
     <div>
+        <div className="flex-container">
       <h2 style={{ paddingLeft: "20px"}}>My Patients</h2>
+      <div>
+        <Link to="/add-patient">
+            <button className="add-patient-button">Add Patient</button>
+        </Link>
+        </div>
+      </div>
       <div className="row">
         {patients.map((patient) => (
           <div key={patient.id} className="col-md-4 mb-4">

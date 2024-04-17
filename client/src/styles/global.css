@@ -1,5 +1,29 @@
 
 /* #00c0ff; my color */
+.flex-container {
+    display: flex;
+    justify-content: space-betweeen;
+    align-items: center;
+}
+.add-patient-button {
+    padding: 8px px; /* Adjust padding as needed */
+    font-size: 14px; /* Adjust font size as needed */
+    border: none;
+    background-color: #00c0ff; /* Blue color */
+    color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .add-patient-button:hover {
+    background-color: #0080ff; /* Darker blue color on hover */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover */
+  }
+
 .card-container {
     display: flex;
     flex-wrap: wrap;

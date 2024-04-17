@@ -23,7 +23,7 @@ function LandingPage() {
 
   return (
     <div>
-      <h1>Welcome to Spalla</h1>
+      <h1>Spalla User Information</h1>
       {user != null ? (
         <div>
           <h2>You are Signed In</h2>
