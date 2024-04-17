@@ -208,7 +208,6 @@ def delete_patient(id):
 @app.route('/hospitals')
 def hospitals():
     hospitals = Hospital.query.all()
-    return redner_template
 
 @app.route("/logout", methods=["POST"])
 def logout_user():
