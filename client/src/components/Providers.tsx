@@ -17,6 +17,8 @@ function Providers() {
     const [nurses, setNurses] = useState<Nurse[]>([]);
     const [hospitals, setHospitals] = useState<Hospital[]>([]);
     const [selectedHospitalId, setSelectedHospitalId] = useState<number | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string>("");
+
 
   useEffect(() => {
     async function fetchData() {
@@ -35,12 +37,21 @@ function Providers() {
      const createRel = async (nurseId: number, hospitalId: number) => {
         try {
             const response = await httpClient.post('/nurse-hosp-rel', { nurseId, hospitalId });
+    
 
             const data = await response.data()
             console.log('Relationship established', data)
 
-        } catch (error) {
+            if (response.status == 201) {
+                setErrorMessage("");
+            }
+
+        } catch (error: any) {
+            if (error.response && error.response.status === 400) {
+                setErrorMessage("Relationship already exists")
+        } else {
             console.error('Error creating relationship', error)
+        }
         }
      }
   return (
@@ -65,6 +76,7 @@ function Providers() {
             </li>
         ))}
       </ul>
+      {errorMessage && <div> {errorMessage}</div>}
     </div>
   );
 }
