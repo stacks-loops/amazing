@@ -10,6 +10,7 @@ interface NavLink {
 const navLinks: NavLink[] = [
   { path: "/spalla-home", label: "Home" },
   { path: "/my-patients", label: "Patients" },
+  { path: "/providers", label: "Providers" },
   { path: "/", label: "Logout" },
   { path: "/login", label: "Login" },
 

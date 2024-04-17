@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import httpClient from "../httpClient";
 import { Link } from "react-router-dom"
+import ErrorModal from "./ErrorModal";
 
 interface Nurse {
   id: number;
@@ -28,8 +29,9 @@ function Providers() {
 
             const hospitalResp = await httpClient.get('/hospitals')
             setHospitals(hospitalResp.data);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error fetching data', error)
+            setErrorMessage("Error fetching data: " + error.message)
         }
     }
     fetchData();
@@ -38,7 +40,6 @@ function Providers() {
         try {
             const response = await httpClient.post('/nurse-hosp-rel', { nurseId, hospitalId });
     
-
             const data = await response.data()
             console.log('Relationship established', data)
 
@@ -51,9 +52,14 @@ function Providers() {
                 setErrorMessage("Relationship already exists")
         } else {
             console.error('Error creating relationship', error)
+            setErrorMessage("Error creating relationship: " + error.message)
         }
         }
      }
+     const handleCloseError = () => {
+        setErrorMessage("")
+     }
+        
   return (
     <div>
       <h1>Hospitals and Nurses</h1>
@@ -62,12 +68,12 @@ function Providers() {
           <li key={nurse.id}>
             {nurse.nurse_name}
             <button onClick={() => createRel(nurse.id, selectedHospitalId!)}>
-                Associate with Hospital
+                Assign Nurse to This Hospital
             </button>
          </li>
         ))}
       </ul>
-      <h1>Hospitals</h1>
+      <h1>Select A Hospitals</h1>
       <ul>
         {hospitals.map(hospital => (
             <li key={hospital.id}>
@@ -76,7 +82,7 @@ function Providers() {
             </li>
         ))}
       </ul>
-      {errorMessage && <div> {errorMessage}</div>}
+      {errorMessage && <ErrorModal message={errorMessage} onClose={handleCloseError}/>}
     </div>
   );
 }
