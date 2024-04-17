@@ -73,7 +73,8 @@ class Hospital(db.Model, SerializerMixin):
     )
 
     class Serializer:
-        associated_nurses = Marshmallow.fields.List(fields.Nested('NurseSerializer'))
+        pass
+        # associated_nurses = Marshmallow.fields.List(fields.Nested('NurseSerializer'))
 
 #relationsips
 

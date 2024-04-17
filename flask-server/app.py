@@ -205,9 +205,26 @@ def delete_patient(id):
 
     return jsonify({"message": "Patient deleted"}), 200
 
-@app.route('/hospitals')
+@app.route('/hospitals', methods=['GET'])
 def hospitals():
     hospitals = Hospital.query.all()
+
+    if not hospitals:
+        return jsonify({"error": "No hospitals found"}), 404
+    
+    return jsonify(hospitals)
+
+@app.route('/hospitals', methods=['POST'])
+def add_hospital():
+    data = request.get_json()
+    if not data: 
+        return jsonify({"error": "Invalid data provided"}), 400
+    new_hosp = Hospital(
+        name = data.get("name"),
+    )
+
+    db.session.add(new_hosp)
+    db.session.commit()
 
 @app.route("/logout", methods=["POST"])
 def logout_user():
