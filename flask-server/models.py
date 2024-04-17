@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-from dataclasses import fields
+# from dataclasses import dataclass_fields as dc_fields
 from flask_sqlalchemy import SQLAlchemy
 from uuid import uuid4
 from sqlalchemy_serializer import SerializerMixin
-from flask_marshmallow import Marshmallow
+from flask_marshmallow import Marshmallow, fields
 
 db = SQLAlchemy()
 # this will generate a unique id
@@ -57,9 +57,9 @@ class Nurse(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     nurse_name = db.Column(db.String(50))
 
-    hospitals = db.relationship(
-        "Hospital", secondary="hospital_nurse_association", backref="nurses"
-    )
+    # hospitals = db.relationship(
+    #     "Hospital", secondary="hospital_nurse_association", backref="nurses"
+    # )
     class Serializer:
         pass
 
@@ -68,11 +68,12 @@ class Hospital(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
 
+    nurses = db.relationship(
+        "Nurse", secondary="hospital_nurse_association", backref="hospitals"
+    )
+
     class Serializer:
         associated_nurses = Marshmallow.fields.List(fields.Nested('NurseSerializer'))
-    @property 
-    def associated_nurses(self):
-        return self.nurses.all()
 
 #relationsips
 
