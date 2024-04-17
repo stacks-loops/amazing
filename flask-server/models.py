@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+from dataclasses import fields
 from flask_sqlalchemy import SQLAlchemy
 from uuid import uuid4
 from sqlalchemy_serializer import SerializerMixin
+from flask_marshmallow import Marshmallow
 
 db = SQLAlchemy()
 # this will generate a unique id
@@ -67,7 +69,7 @@ class Hospital(db.Model, SerializerMixin):
     name = db.Column(db.String(80))
 
     class Serializer:
-        pass
+        associated_nurses = Marshmallow.fields.List(fields.Nested('NurseSerializer'))
     @property 
     def associated_nurses(self):
         return self.nurses.all()

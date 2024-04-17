@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import httpClient from "../httpClient";
-import { Hospital } from "./flask-server/models/hospital.model";
 
 interface Nurse {
   id: number;
   nurse_name: string;
+}
+
+export interface Hospital {
+    id: number;
+    name: string;
+    associated_nurses: Nurse[];
 }
 
 function Providers() {
